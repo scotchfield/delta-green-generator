@@ -1,2 +1,2 @@
-# cthulhu-generator
-Call of Cthulhu modern day character generator
+# delta-green-generator
+Delta Green character generator
