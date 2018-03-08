@@ -20,9 +20,33 @@ function generate(defaultCharacter) {
         c[key] = c[key] || value;
     };
 
+    // TODO: set first name and last name
+
     ['str', 'dex', 'int', 'con', 'app', 'pow'].forEach(stat => {
         set(stat, randint(3, 18));
     });
+
+    set('siz', randint(8, 18));
+    set('edu', randint(6, 21));
+    set('idea', c['int'] * 5);
+    set('luck', c['pow'] * 5);
+    set('know', Math.min(c['edu'] * 5, 99));
+    let dmgBase = c['str'] + c['siz'];
+    if (dmgBase <= 12) {
+        set('dmgb', '-1d6');
+    } else if (dmgBase <= 16) {
+        set('dmgb', '-1d4');
+    } else if (dmgBase <= 24) {
+        set('dmgb', '0');
+    } else if (dmgBase <= 32) {
+        set('dmgb', '1d4');
+    } else {
+        set('dmgb', '1d6');
+    }
+
+    set('hp', Math.round((c['con'] + c['siz']) / 2));
+    set('mp', c['pow']);
+    set('san', c['pow'] * 5);
 
     return c;
 }
@@ -40,6 +64,15 @@ function print(character) {
     console.log('CON: ' + get('con'));
     console.log('APP: ' + get('app'));
     console.log('POW: ' + get('pow'));
+    console.log('SIZ: ' + get('siz'));
+    console.log('EDU: ' + get('edu'));
+    console.log('IDEA: ' + get('idea'));
+    console.log('LUCK: ' + get('luck'));
+    console.log('KNOW: ' + get('know'));
+    console.log('Damage bonus: ' + get('dmgb'));
+    console.log('HP: ' + get('hp'));
+    console.log('MP: ' + get('mp'));
+    console.log('SAN: ' + get('san'));
 }
 
 print(generate());
