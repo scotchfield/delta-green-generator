@@ -5,7 +5,7 @@ function randint(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
-// Generate a Call of Cthulhu character.
+// Generate a Delta Green character.
 // Accepts an optional dictionary argument which can supply default values.
 // Some values will be overwritten regardless. For example, attributes such as
 // idea or luck depend on existing values, and will be overwritten if needed.
