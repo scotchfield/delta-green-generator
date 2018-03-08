@@ -5,10 +5,6 @@ function randint(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
-function maybeSet(d, key, value) {
-    d[key] = d[key] || value;
-}
-
 // Generate a Call of Cthulhu character.
 // Accepts an optional dictionary argument which can supply default values.
 // Some values will be overwritten regardless. For example, attributes such as
@@ -47,4 +43,3 @@ function print(character) {
 }
 
 print(generate());
-print(generate({ str: 3 }));
