@@ -78,6 +78,30 @@ const professions = [
         },
         bonds: 4,
     },
+    {
+        name: ['Computer Scientist', 'Computer Engineer'],
+        stats: ['int'],
+        skills: {
+            'Computer Science': 60,
+            'Craft (Electrician)': 30,
+            'Craft (Mechanic)': 30,
+            'Craft (Microelectronics)': 40,
+            'Science (Mathematics)': 40,
+            'SIGINT': 40,
+        },
+        skillsExtraCount: 4,
+        skillsExtra: {
+            'Accounting': 50,
+            'Bureaucracy': 50,
+            'Craft': 40,
+            'Foreign Language 1': 40,
+            'Foreign Language 2': 40,
+            'Heavy Machinery': 50,
+            'Law': 40,
+            'Science': 40,
+        },
+        bonds: 3,
+    },
     // TODO: add more professions
 ];
 
@@ -185,18 +209,13 @@ function print(character) {
     console.log('\tName: ' + get('firstName') + ' ' + get('lastName'));
     console.log('\tProfession: ' + get('profession'));
     console.log('** Attributes')
-    console.log('\tSTR: ' + get('str'));
-    console.log('\tDEX: ' + get('dex'));
-    console.log('\tCON: ' + get('con'));
-    console.log('\tINT: ' + get('int'));
-    console.log('\tPOW: ' + get('pow'));
-    console.log('\tCHA: ' + get('cha'));
-    console.log('\tHP: ' + get('hp'));
-    console.log('\tWP: ' + get('wp'));
-    console.log('\tSAN: ' + get('san'));
-    console.log('\tBP: ' + get('bp'));
+    console.log('\tSTR: ' + get('str') + '\t\tDEX: ' + get('dex'));
+    console.log('\tCON: ' + get('con') + '\t\tINT: ' + get('int'));
+    console.log('\tPOW: ' + get('pow') + '\t\tCHA: ' + get('cha'));
+    console.log('\tHP: ' + get('hp') + '\t\tWP: ' + get('wp'));
+    console.log('\tSAN: ' + get('san') + '\t\tBP: ' + get('bp'));
     console.log('** Skills');
-    Object.keys(character['skills']).forEach(skill => {
+    Object.keys(character['skills']).sort().forEach(skill => {
         console.log('\t' + skill + ': ' + character['skills'][skill]);
     })
 }
