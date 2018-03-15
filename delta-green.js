@@ -24,6 +24,8 @@ const skills = {
     'Drive': 20,
     'Firearms': 20,
     'First Aid': 10,
+    'Foreign Language 1': 0,
+    'Foreign Language 2': 0,
     'Forensics': 0,
     'Heavy Machinery': 10,
     'Heavy Weapons': 0,
@@ -51,6 +53,34 @@ const skills = {
     'Unnatural': 0,
 };
 
+const professions = [
+    {
+        name: ['Anthropologist', 'Historian'],
+        stats: ['int'],
+        skills: {
+            'Anthropology': 50,
+            'Bureaucracy': 40,
+            'Foreign Language 1': 50,
+            'Foreign Language 2': 40,
+            'History': 60,
+            'Occult': 40,
+            'Persuade': 40,
+        },
+        skillsExtraCount: 2,
+        skillsExtra: {
+            'Anthropology': 40,
+            'Archaeology': 40,
+            'HUMINT': 50,
+            'Navigate': 50,
+            'Ride': 50,
+            'Search': 60,
+            'Survival': 50,
+        },
+        bonds: 4,
+    },
+    // TODO: add more professions
+];
+
 // Generate a random integer between min and max, inclusive
 // For example, randint(3, 18) will return a number that may be as low as 3 or
 // as high as 18.
@@ -76,6 +106,23 @@ function choose(arr) {
     return arr[Math.floor(Math.random() * arr.length)];
 }
 
+function getProfession() {
+    const obj = {};
+    const p = choose(professions);
+
+    obj['name'] = choose(p['name']);
+    obj['stats'] = p['stats'];
+    obj['skills'] = p['skills'];
+    const skillSet = new Set();
+    while (skillSet.size < p['skillsExtraCount']) {
+        skillSet.add(choose(Object.keys(p['skillsExtra'])));
+    }
+    skillSet.forEach(skill => obj['skills'][skill] = p['skillsExtra'][skill]);
+    obj['bonds'] = p['bonds'];
+
+    return obj;
+}
+
 // Generate a Delta Green character.
 // Accepts an optional dictionary argument which can supply default values.
 // Some values will be overwritten regardless. For example, attributes such as
@@ -94,6 +141,15 @@ function generate(defaultCharacter) {
     set('firstName', choose(firstNames));
     set('lastName', choose(lastNames));
 
+    // TODO: add character age
+    // TODO: add nationality
+    // TODO: add bonds
+    // TODO: add motavations
+    // TODO: maybe add mental disorder
+    // TODO: maybe add adapted states
+    // TODO: add distinguishing features beside attributes (p. 21)
+
+
     ['str', 'dex', 'con', 'int', 'pow', 'cha'].forEach(stat => {
         set(stat, fourDeeSixBest());
     });
@@ -108,6 +164,14 @@ function generate(defaultCharacter) {
         c['skills'][skill] = c['skills'][skill] || skills[skill];
     })
 
+    const profession = getProfession();
+    set('profession', profession['name'])
+    Object.keys(profession['skills']).forEach(skill => {
+        c['skills'][skill] = profession['skills'][skill];
+    })
+
+    // TODO: randomly perturb the skills to fake field experience
+
     return c;
 }
 
@@ -116,7 +180,10 @@ function print(character) {
         return character[key] || String(key);
     }
 
-    console.log('* Character: ' + get('firstName') + ' ' + get('lastName'));
+    console.log('* Character');
+    console.log('** Detail');
+    console.log('\tName: ' + get('firstName') + ' ' + get('lastName'));
+    console.log('\tProfession: ' + get('profession'));
     console.log('** Attributes')
     console.log('\tSTR: ' + get('str'));
     console.log('\tDEX: ' + get('dex'));
