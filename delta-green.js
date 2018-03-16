@@ -59,6 +59,65 @@ const skills = {
     Unnatural: 0
 };
 
+const typeSkills = {
+    Craft: [
+        "Architect",
+        "Carpenter",
+        "Electrician",
+        "Gunsmith",
+        "Locksmith",
+        "Mechanic",
+        "Microelectronics",
+        "Plumber"
+    ],
+    Science: [
+        "Astronomy",
+        "Biology",
+        "Botany",
+        "Chemistry",
+        "Engineering",
+        "Genetics",
+        "Geology",
+        "Mathematics",
+        "Meteorology",
+        "Physics",
+        "Planetology",
+        "Zoology"
+    ],
+    "Foreign Language": [
+        "Mandarin",
+        "Spanish",
+        "Hindi",
+        "Arabic",
+        "Portuguese",
+        "Bengali",
+        "Russian",
+        "Japanese",
+        "Punjabi",
+        "German",
+        "Javanese",
+        "Wu",
+        "Malay",
+        "Telugu",
+        "Vietnamese",
+        "Korean",
+        "French",
+        "Marathi",
+        "Tamil",
+        "Urdu",
+        "Turkish",
+        "Italian"
+    ]
+};
+const typeSkillsReplace = {
+    "Craft (choose one)": "Craft",
+    "Science (choose one)": "Science",
+    "Science (choose another)": "Science",
+    "Science (choose yet another)": "Science",
+    "Foreign Language 1": "Foreign Language",
+    "Foreign Language 2": "Foreign Language"
+};
+
 const professions = [
     {
         name: ["Anthropologist", "Historian"],
@@ -200,7 +259,6 @@ const professions = [
         bonds: 2
     }
     // TODO: add more professions frmo p. 25+
-    // TODO: convert (choose one) skills to real qualified skills
 ];
 
 // Generate a random integer between min and max, inclusive
@@ -286,7 +344,20 @@ function generate(defaultCharacter) {
         c["skills"][skill] = profession["skills"][skill];
     });
 
-    // TODO: randomly perturb the skills to fake field experience
+    for (let i = 0; i < c["age"] / 2; i += 1) {
+        const skill = choose(Object.keys(c["skills"]));
+        c["skills"][skill] += randint(1, 3);
+    }
+
+    Object.keys(typeSkillsReplace).forEach(skill => {
+        if (c["skills"][skill]) {
+            const newSkill = choose(typeSkills[typeSkillsReplace[skill]]);
+            console.log(newSkill);
+            c["skills"][typeSkillsReplace[skill] + " (" + newSkill + ")"] =
+                c["skills"][skill];
+            delete c["skills"][skill];
+        }
+    });
 
     return c;
 }
