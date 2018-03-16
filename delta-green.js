@@ -93,16 +93,108 @@ const professions = [
         skillsExtra: {
             'Accounting': 50,
             'Bureaucracy': 50,
-            'Craft': 40,
+            'Craft (choose one)': 40,
             'Foreign Language 1': 40,
             'Foreign Language 2': 40,
             'Heavy Machinery': 50,
             'Law': 40,
-            'Science': 40,
+            'Science (choose one)': 40,
         },
         bonds: 3,
     },
-    // TODO: add more professions
+    {
+        name: ['Federal Agent'],
+        stats: ['con', 'pow', 'cha'],
+        skills: {
+            'Alertness': 50,
+            'Bureaucracy': 40,
+            'Criminology': 50,
+            'Drive': 50,
+            'Firearms': 50,
+            'Forensics': 30,
+            'HUMINT': 60,
+            'Law': 30,
+            'Persuade': 50,
+            'Search': 50,
+            'Unarmed Combat': 60,
+        },
+        skillsExtraCount: 1,
+        skillsExtra: {
+            'Accounting': 60,
+            'Computer Science': 50,
+            'Foreign Language 1': 50,
+            'Foreign Language 2': 50,
+            'Heavy Weapons': 50,
+            'Pharmacy': 50,
+        },
+        bonds: 3,
+    },
+    {
+        name: ['Physician'],
+        stats: ['int', 'pow', 'dex'],
+        skills: {
+            'Bureaucracy': 50,
+            'First Aid': 60,
+            'Medicine': 60,
+            'Persuade': 40,
+            'Pharmacy': 50,
+            'Science (Biology)': 60,
+            'Search': 40,
+        },
+        skillsExtraCount: 2,
+        skillsExtra: {
+            'Forensics': 50,
+            'Psychotherapy': 60,
+            'Science (choose one)': 50,
+            'Surgery': 50,
+        },
+        bonds: 3,
+    },
+    {
+        name: ['Scientist'],
+        stats: ['int'],
+        skills: {
+            'Bureaucracy': 40,
+            'Computer Science': 40,
+            'Science (choose one)': 60,
+            'Science (choose another)': 50,
+            'Science (choose yet another)': 50,
+        },
+        skillsExtraCount: 3,
+        skillsExtra: {
+            'Accounting': 50,
+            'Craft (choose one)': 40,
+            'Foreign Language 1': 40,
+            'Foreign Language 2': 40,
+            'Forensics': 40,
+            'Law': 40,
+            'Pharmacy': 40,
+        },
+        bonds: 4,
+    },
+    {
+        name: ['Special Operator'],
+        stats: ['str', 'con', 'pow'],
+        skills: {
+            'Alertness': 60,
+            'Athletics': 60,
+            'Demolitions': 40,
+            'Firearms': 60,
+            'Heavy Weapons': 50,
+            'Melee Weapons': 50,
+            'Military Science (Land)': 60,
+            'Navigate': 50,
+            'Stealth': 50,
+            'Survival': 50,
+            'Swim': 50,
+            'Unarmed Combat': 60,
+        },
+        skillsExtraCount: 0,
+        skillsExtra: {},
+        bonds: 2,
+    },
+    // TODO: add more professions frmo p. 25+
+    // TODO: convert (choose one) skills to real qualified skills
 ];
 
 // Generate a random integer between min and max, inclusive
@@ -164,15 +256,14 @@ function generate(defaultCharacter) {
 
     set('firstName', choose(firstNames));
     set('lastName', choose(lastNames));
+    set('age', randint(19, 50));
 
-    // TODO: add character age
     // TODO: add nationality
     // TODO: add bonds
-    // TODO: add motavations
+    // TODO: add motivations
     // TODO: maybe add mental disorder
     // TODO: maybe add adapted states
     // TODO: add distinguishing features beside attributes (p. 21)
-
 
     ['str', 'dex', 'con', 'int', 'pow', 'cha'].forEach(stat => {
         set(stat, fourDeeSixBest());
@@ -207,6 +298,7 @@ function print(character) {
     console.log('* Character');
     console.log('** Detail');
     console.log('\tName: ' + get('firstName') + ' ' + get('lastName'));
+    console.log('\tAge: ' + get('age'));
     console.log('\tProfession: ' + get('profession'));
     console.log('** Attributes')
     console.log('\tSTR: ' + get('str') + '\t\tDEX: ' + get('dex'));
