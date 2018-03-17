@@ -63,6 +63,7 @@ const skills = {
 };
 
 const typeSkills = {
+    Art: ["Creative Writing", "Journalism", "Poetry", "Scriptwriting"],
     Craft: [
         "Architect",
         "Carpenter",
@@ -72,6 +73,12 @@ const typeSkills = {
         "Mechanic",
         "Microelectronics",
         "Plumber"
+    ],
+    "Military Science": [
+        "ok" // TODO: Add military science specializations
+    ],
+    Pilot: [
+        "ok" // TODO: Add pilot specializations
     ],
     Science: [
         "Astronomy",
@@ -113,12 +120,18 @@ const typeSkills = {
     ]
 };
 const typeSkillsReplace = {
-    "Craft (choose one)": "Craft",
-    "Science (choose one)": "Science",
-    "Science (choose another)": "Science",
-    "Science (choose yet another)": "Science",
+    "Art 1": "Art",
+    "Art 2": "Art",
+    "Craft 1": "Craft",
+    "Military Science 1": "Military Science",
+    "Pilot 1": "Pilot",
+    "Pilot 2": "Pilot",
+    "Science 1": "Science",
+    "Science 2": "Science",
+    "Science 3": "Science",
     "Foreign Language 1": "Foreign Language",
-    "Foreign Language 2": "Foreign Language"
+    "Foreign Language 2": "Foreign Language",
+    "Foreign Language 3": "Foreign Language"
 };
 
 const professions = [
@@ -161,12 +174,12 @@ const professions = [
         skillsExtra: {
             Accounting: 50,
             Bureaucracy: 50,
-            "Craft (choose one)": 40,
+            "Craft 1": 40,
             "Foreign Language 1": 40,
             "Foreign Language 2": 40,
             "Heavy Machinery": 50,
             Law: 40,
-            "Science (choose one)": 40
+            "Science 1": 40
         },
         bonds: 3
     },
@@ -213,7 +226,7 @@ const professions = [
         skillsExtra: {
             Forensics: 50,
             Psychotherapy: 60,
-            "Science (choose one)": 50,
+            "Science 1": 50,
             Surgery: 50
         },
         bonds: 3
@@ -224,14 +237,14 @@ const professions = [
         skills: {
             Bureaucracy: 40,
             "Computer Science": 40,
-            "Science (choose one)": 60,
-            "Science (choose another)": 50,
-            "Science (choose yet another)": 50
+            "Science 1": 60,
+            "Science 2": 50,
+            "Science 3": 50
         },
         skillsExtraCount: 3,
         skillsExtra: {
             Accounting: 50,
-            "Craft (choose one)": 40,
+            "Craft 1": 40,
             "Foreign Language 1": 40,
             "Foreign Language 2": 40,
             Forensics: 40,
@@ -260,8 +273,284 @@ const professions = [
         skillsExtraCount: 0,
         skillsExtra: {},
         bonds: 2
+    },
+    {
+        name: ["Criminal"],
+        stats: ["str", "dex"],
+        skills: {
+            Alertness: 50,
+            Criminology: 60,
+            Dodge: 40,
+            Drive: 50,
+            Firearms: 40,
+            Law: 40,
+            "Melee Weapons": 40,
+            Persuade: 50,
+            Stealth: 50,
+            "Unarmed Combat": 50
+        },
+        skillsExtraCount: 2,
+        skillsExtra: {
+            "Craft (Locksmithing)": 40,
+            Demolitions: 40,
+            Disguise: 50,
+            "Foreign Language 1": 40,
+            Forensics: 40,
+            HUMINT: 50,
+            Navigate: 50,
+            Occult: 50,
+            Pharmacy: 40
+        },
+        bonds: 4
+    },
+    {
+        name: ["Firefighter"],
+        stats: ["str", "dex", "con"],
+        skills: {
+            Alertness: 50,
+            Athletics: 60,
+            "Craft (Electrician)": 40,
+            "Craft (Mechanic)": 40,
+            Demolitions: 50,
+            Drive: 50,
+            "First Aid": 50,
+            Forensics: 40,
+            "Heavy Machinery": 50,
+            Navigate: 50,
+            Search: 40
+        },
+        skillsExtraCount: 0,
+        skillsExtra: {},
+        bonds: 3
+    },
+    {
+        name: ["Foreign Service Officer"],
+        stats: ["int", "cha"],
+        skills: {
+            Accounting: 40,
+            Anthropology: 40,
+            Bureaucracy: 60,
+            "Foreign Language 1": 50,
+            "Foreign Language 2": 50,
+            "Foreign Language 3": 40,
+            History: 40,
+            HUMINT: 50,
+            Law: 40,
+            Persuade: 50
+        },
+        skillsExtraCount: 0,
+        skillsExtra: {},
+        bonds: 3
+    },
+    {
+        name: ["Intelligence Analyst"],
+        stats: ["int"],
+        skills: {
+            Anthropology: 40,
+            Bureaucracy: 50,
+            "Computer Science": 40,
+            Criminology: 40,
+            "Foreign Language 1": 50,
+            "Foreign Language 2": 50,
+            "Foreign Language 3": 40,
+            History: 40,
+            HUMINT: 50,
+            SIGINT: 50
+        },
+        skillsExtraCount: 0,
+        skillsExtra: {},
+        bonds: 3
+    },
+    {
+        name: ["Intelligence Case Officer"],
+        stats: ["int", "pow", "cha"],
+        skills: {
+            Alertness: 50,
+            Bureaucracy: 40,
+            Criminology: 50,
+            Disguise: 50,
+            Drive: 40,
+            Firearms: 40,
+            "Foreign Language 1": 50,
+            "Foreign Language 2": 40,
+            HUMINT: 60,
+            Persuade: 60,
+            SIGINT: 40,
+            Stealth: 50,
+            "Unarmed Combat": 50
+        },
+        skillsExtraCount: 0,
+        skillsExtra: {},
+        bonds: 2
+    },
+    {
+        name: ["Lawyer", "Business Executive"],
+        stats: ["int", "cha"],
+        skills: {
+            Accounting: 50,
+            Bureaucracy: 50,
+            HUMINT: 40,
+            Persuade: 60
+        },
+        skillsExtraCount: 4,
+        skillsExtra: {
+            "Computer Science": 50,
+            Criminology: 60,
+            "Foreign Language 1": 50,
+            Law: 50,
+            Pharmacy: 50
+        },
+        bonds: 4
+    },
+    {
+        name: ["Media Specialist"],
+        stats: ["int", "cha"],
+        skills: {
+            "Art 1": 60,
+            History: 40,
+            HUMINT: 40,
+            Persuade: 50
+        },
+        skillsExtraCount: 5,
+        skillsExtra: {
+            Anthropology: 40,
+            Archaeology: 40,
+            "Art 2": 40,
+            Bureaucracy: 50,
+            "Computer Science": 40,
+            Criminology: 50,
+            "Foreign Language 1": 40,
+            Law: 40,
+            "Military Science 1": 40,
+            Occult: 50,
+            "Science 1": 40
+        },
+        bonds: 4
+    },
+    {
+        name: ["Nurse", "Paramedic"],
+        stats: ["int", "pow", "cha"],
+        skills: {
+            Alertness: 40,
+            Bureaucracy: 40,
+            "First Aid": 60,
+            HUMINT: 40,
+            Medicine: 40,
+            Persuade: 40,
+            Pharmacy: 40,
+            "Science (Biology)": 40
+        },
+        skillsExtraCount: 2,
+        skillsExtra: {
+            Drive: 60,
+            Forensics: 40,
+            Navigate: 50,
+            Psychotherapy: 50,
+            Search: 60
+        },
+        bonds: 4
+    },
+    {
+        name: ["Pilot", "Sailor"],
+        stats: ["dex", "int"],
+        skills: {
+            Alertness: 60,
+            Bureaucracy: 30,
+            "Craft (Electrician)": 40,
+            "Craft (Mechanic)": 40,
+            Navigate: 50,
+            "Pilot 1": 60,
+            "Science (Meteorology)": 40,
+            Swim: 40
+        },
+        skillsExtraCount: 2,
+        skillsExtra: {
+            "Foreign Language 1": 50,
+            "Pilot 2": 50,
+            "Heavy Weapons": 50,
+            "Military Science 1": 50
+        },
+        bonds: 3
+    },
+    {
+        name: ["Police Officer"],
+        stats: ["str", "con", "pow"],
+        skills: {
+            Alertness: 60,
+            Bureaucracy: 40,
+            Criminology: 40,
+            Drive: 50,
+            Firearms: 40,
+            "First Aid": 30,
+            HUMINT: 50,
+            Law: 30,
+            "Melee Weapons": 50,
+            Navigate: 40,
+            Persuade: 40,
+            Search: 40,
+            "Unarmed Combat": 60
+        },
+        skillsExtraCount: 1,
+        skillsExtra: {
+            Forensics: 50,
+            "Heavy Machinery": 60,
+            "Heavy Weapons": 50,
+            Ride: 60
+        },
+        bonds: 3
+    },
+    {
+        name: ["Program Manager"],
+        stats: ["int", "cha"],
+        skills: {
+            Accounting: 60,
+            Bureaucracy: 60,
+            "Computer Science": 50,
+            Criminology: 30,
+            "Foreign Language 1": 50,
+            History: 40,
+            Law: 40,
+            Persuade: 50
+        },
+        skillsExtraCount: 1,
+        skillsExtra: {
+            Anthropology: 30,
+            "Art 1": 30,
+            "Craft 1": 30,
+            "Science 1": 30
+        },
+        bonds: 4
+    },
+    {
+        name: ["Soldier", "Marine"],
+        stats: ["str", "con"],
+        skills: {
+            Alertness: 50,
+            Athletics: 50,
+            Bureaucracy: 30,
+            Drive: 40,
+            Firearms: 40,
+            "First Aid": 40,
+            "Military Science (Land)": 40,
+            Navigate: 40,
+            Persuade: 30,
+            "Unarmed Combat": 50
+        },
+        skillsExtraCount: 3,
+        skillsExtra: {
+            Artillery: 40,
+            "Computer Science": 40,
+            "Craft 1": 40,
+            Demolitions: 40,
+            "Foreign Language 1": 40,
+            "Heavy Machinery": 50,
+            "Heavy Weapons": 40,
+            Search: 60,
+            SIGINT: 40,
+            Swim: 60
+        },
+        bonds: 4
     }
-    // TODO: add more professions frmo p. 25+
 ];
 
 // Generate a random integer between min and max, inclusive
@@ -348,7 +637,12 @@ function generate(defaultCharacter) {
 
     set("bonds", []);
     for (let i = 0; i < profession["bonds"]; i += 1) {
-        c["bonds"].push(choose(consts.firstNames) + " (" + choose(consts.relationships) + ")");
+        c["bonds"].push(
+            choose(consts.firstNames) +
+                " (" +
+                choose(consts.relationships) +
+                ")"
+        );
     }
 
     for (let i = 0; i < c["age"] / 2; i += 1) {
@@ -362,8 +656,8 @@ function generate(defaultCharacter) {
             console.log(newSkill);
             c["skills"][typeSkillsReplace[skill] + " (" + newSkill + ")"] =
                 c["skills"][skill];
-            delete c["skills"][skill];
         }
+        delete c["skills"][skill];
     });
 
     return c;
