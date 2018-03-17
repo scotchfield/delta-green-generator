@@ -10,6 +10,9 @@ const consts = {
     countries: [
         "Afghanistan", "Albania", "Algeria", "Andorra", "Angola", "Antigua & Barbuda", "Argentina", "Armenia", "Australia", "Austria", "Azerbaijan", "Bahamas", "Bahrain", "Bangladesh", "Barbados", "Belarus", "Belgium", "Belize", "Benin", "Bhutan", "Bolivia", "Bosnia & Herzegovina", "Botswana", "Brazil", "Brunei", "Bulgaria", "Burkina Faso", "Burundi", "Cambodia", "Cameroon", "Canada", "Cape Verde", "Central African Republic", "Chad", "Chile", "China", "Colombia", "Comoros", "Congo", "Congo Democratic Republic", "Costa Rica", "Cote D'Ivoire", "Croatia", "Cuba", "Cyprus", "Czech Republic", "Denmark", "Djibouti", "Dominica", "Dominican Republic", "East Timor", "Ecuador", "Egypt", "El Salvador", "Equatorial Guinea", "Eritrea", "Estonia", "Ethiopia", "Fiji", "Finland", "France", "Gabon", "Gambia", "Georgia", "Germany", "Ghana", "Greece", "Grenada", "Guatemala", "Guinea", "Guinea-Bissau", "Guyana", "Haiti", "Honduras", "Hungary", "Iceland", "India", "Indonesia", "Iran", "Iraq", "Ireland", "Israel", "Italy", "Jamaica", "Japan", "Jordan", "Kazakhstan", "Kenya", "Kiribati", "Korea North", "Korea South", "Kosovo", "Kuwait", "Kyrgyzstan", "Laos", "Latvia", "Lebanon", "Lesotho", "Liberia", "Libya", "Liechtenstein", "Lithuania", "Luxembourg", "Macedonia", "Madagascar", "Malawi", "Malaysia", "Maldives", "Mali", "Malta", "Marshall Islands", "Mauritania", "Mauritius", "Mexico", "Micronesia", "Moldova", "Monaco", "Mongolia", "Montenegro", "Morocco", "Mozambique", "Myanmar (Burma)", "Namibia", "Nauru", "Nepal", "New Zealand", "Nicaragua", "Niger", "Nigeria", "Norway", "Oman", "Pakistan", "Palau", "Palestinian State*", "Panama", "Papua New Guinea", "Paraguay", "Peru", "Poland", "Portugal", "Qatar", "Romania", "Russia", "Rwanda", "Samoa", "San Marino", "Sao Tome & Principe", "Saudi Arabia", "Senegal", "Serbia", "Seychelles", "Sierra Leone", "Singapore", "Slovakia", "Slovenia", "Solomon Islands", "Somalia", "South Africa", "South Sudan", "Spain", "Sri Lanka", "St. Kitts & Nevis", "St. Lucia", "St. Vincent & The Grenadines", "Sudan", "Suriname", "Swaziland", "Sweden", "Switzerland", "Syria", "Taiwan", "Tajikistan", "Tanzania", "Thailand", "The Netherlands", "The Philippines", "Togo", "Tonga", "Trinidad & Tobago", "Tunisia", "Turkey", "Turkmenistan", "Tuvalu", "Uganda", "Ukraine", "United Arab Emirates", "United Kingdom", "United States Of America", "Uruguay", "Uzbekistan", "Vanuatu", "Vatican City (Holy See)", "Venezuela", "Vietnam", "Yemen", "Zambia", "Zimbabwe"
     ],
+    relationships: [
+        "Spouse", "Ex-spouse", "Child", "Parent", "Grandparent", "Best friend", "Coworker", "Partner", "Psychologist", "Therapist", "Work Colleague", "Church friend", "Support group friend", "Fellow survivor of trauma"
+    ]
 };
 
 const skills = {
@@ -318,7 +321,6 @@ function generate(defaultCharacter) {
     set("age", randint(19, 50));
     set("nationality", choose(consts.countries));
 
-    // TODO: add bonds
     // TODO: add motivations
     // TODO: maybe add mental disorder
     // TODO: maybe add adapted states
@@ -343,6 +345,11 @@ function generate(defaultCharacter) {
     Object.keys(profession["skills"]).forEach(skill => {
         c["skills"][skill] = profession["skills"][skill];
     });
+
+    set("bonds", []);
+    for (let i = 0; i < profession["bonds"]; i += 1) {
+        c["bonds"].push(choose(consts.firstNames) + " (" + choose(consts.relationships) + ")");
+    }
 
     for (let i = 0; i < c["age"] / 2; i += 1) {
         const skill = choose(Object.keys(c["skills"]));
@@ -382,6 +389,10 @@ function print(character) {
     console.log("** Skills");
     Object.keys(character["skills"]).sort().forEach(skill => {
         console.log("\t" + skill + ": " + character["skills"][skill]);
+    });
+    console.log("** Bonds");
+    character["bonds"].forEach(bond => {
+        console.log("\t" + bond);
     });
 }
 
