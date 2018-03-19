@@ -15,6 +15,8 @@ const consts = {
     ]
 };
 
+const statistics = ["str", "dex", "con", "int", "pow", "cha"];
+
 const skills = {
     Accounting: 10,
     Alertness: 20,
@@ -74,11 +76,7 @@ const typeSkills = {
         "Microelectronics",
         "Plumber"
     ],
-    "Military Science": [
-        "Air",
-        "Land",
-        "Sea"
-    ],
+    "Military Science": ["Air", "Land", "Sea"],
     Pilot: [
         "Airplane",
         "Drone",
@@ -139,6 +137,15 @@ const typeSkillsReplace = {
     "Foreign Language 1": "Foreign Language",
     "Foreign Language 2": "Foreign Language",
     "Foreign Language 3": "Foreign Language"
+};
+
+const distinguishingFeatures = {
+    str: ["Feeble", "Weak", "Muscular", "Huge"],
+    dex: ["Barely mobile", "Clumsy", "Nimble", "Acrobatic"],
+    con: ["Bedridden", "Sickly", "Perfect health", "Indefeatigable"],
+    int: ["Imbecilic", "Slow", "Perceptive", "Brilliant"],
+    pow: ["Spineless", "Nervous", "Strong-willed", "Indomitable"],
+    cha: ["Unbearable", "Awkward", "Charming", "Magnetic"]
 };
 
 const professions = [
@@ -620,10 +627,22 @@ function generate(defaultCharacter) {
     // TODO: add motivations
     // TODO: maybe add mental disorder
     // TODO: maybe add adapted states
-    // TODO: add distinguishing features beside attributes (p. 21)
 
-    ["str", "dex", "con", "int", "pow", "cha"].forEach(stat => {
-        set(stat, fourDeeSixBest());
+    statistics.forEach(stat => {
+        const roll = fourDeeSixBest();
+        set(stat, roll);
+
+        let feature = "Average";
+        if (c[stat] >= 3 && c[stat] <= 4) {
+            feature = distinguishingFeatures[stat][0];
+        } else if (c[stat] >= 5 && c[stat] <= 8) {
+            feature = distinguishingFeatures[stat][1];
+        } else if (c[stat] >= 13 && c[stat] <= 16) {
+            feature = distinguishingFeatures[stat][2];
+        } else if (c[stat] >= 17 && c[stat] <= 18) {
+            feature = distinguishingFeatures[stat][3];
+        }
+        set(stat + "Feature", feature);
     });
 
     set("hp", Math.ceil((c["str"] + c["con"]) / 2));
@@ -675,6 +694,12 @@ function print(character) {
         return character[key] || String(key);
     };
 
+    const feature = function(stat) {
+        if (get(stat)) {
+            return " (" + get(stat + "Feature") + ")";
+        }
+    };
+
     console.log("* Character");
     console.log("** Detail");
     console.log("\tName: " + get("firstName") + " " + get("lastName"));
@@ -682,9 +707,11 @@ function print(character) {
     console.log("\tNationality: " + get("nationality"));
     console.log("\tProfession: " + get("profession"));
     console.log("** Attributes");
-    console.log("\tSTR: " + get("str") + "\t\tDEX: " + get("dex"));
-    console.log("\tCON: " + get("con") + "\t\tINT: " + get("int"));
-    console.log("\tPOW: " + get("pow") + "\t\tCHA: " + get("cha"));
+    statistics.forEach(stat => {
+        console.log(
+            "\t" + stat.toUpperCase() + ": " + get(stat) + feature(stat)
+        );
+    });
     console.log("\tHP: " + get("hp") + "\t\tWP: " + get("wp"));
     console.log("\tSAN: " + get("san") + "\t\tBP: " + get("bp"));
     console.log("** Skills");
