@@ -610,7 +610,7 @@ function getProfession() {
 // idea or luck depend on existing values, and will be overwritten if needed.
 // Returns an object with properties corresponding to elements in the
 // character sheet.
-function generate(defaultCharacter) {
+function generateCharacter(defaultCharacter) {
     const c = defaultCharacter || {};
 
     // Define a helper function so we only set values in c iff the property is
@@ -679,7 +679,6 @@ function generate(defaultCharacter) {
     Object.keys(typeSkillsReplace).forEach(skill => {
         if (c["skills"][skill]) {
             const newSkill = choose(typeSkills[typeSkillsReplace[skill]]);
-            console.log(newSkill);
             c["skills"][typeSkillsReplace[skill] + " (" + newSkill + ")"] =
                 c["skills"][skill];
         }
@@ -689,7 +688,7 @@ function generate(defaultCharacter) {
     return c;
 }
 
-function print(character) {
+function printCharacter(character) {
     const get = function(key) {
         return character[key] || String(key);
     };
@@ -724,4 +723,8 @@ function print(character) {
     });
 }
 
-print(generate());
+module.exports = {
+    generateCharacter,
+    printCharacter
+};
+//print(generate());
