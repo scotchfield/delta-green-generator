@@ -75,10 +75,17 @@ const typeSkills = {
         "Plumber"
     ],
     "Military Science": [
-        "ok" // TODO: Add military science specializations
+        "Air",
+        "Land",
+        "Sea"
     ],
     Pilot: [
-        "ok" // TODO: Add pilot specializations
+        "Airplane",
+        "Drone",
+        "Helicopter",
+        "Small Boat",
+        "Ship",
+        "Space Shuttle"
     ],
     Science: [
         "Astronomy",
